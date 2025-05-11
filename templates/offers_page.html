@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+Вам предлагают
+
+<div>
+{% if offered_ads %}
+
+    {% for ad in offered_ads %}
+        <div>
+
+        {{ ad.title }} {{ ad.created_at }} {{ ad.description }} {{ ad.condition }} {{ ad.category }}
+            {% if ad.status == '0' %}
+        <a href="{% url  "deny" ad.id %}">Отклонить</a>
+        <a href="{% url  "accept" ad.id %}">Принять</a>
+                {% elif ad.status == '-1' %}
+                <p>Отклонено</p>
+                {% else %}
+                <p>Принято</p>
+            {% endif %}
+        </div>
+    {% endfor %}
+
+
+{% else %}
+    <p>Пока вам не поступило предложений</p>
+{% endif %}
+</div>
+
+{% endblock %}

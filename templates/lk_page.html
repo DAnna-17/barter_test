@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div>
+    Добавление объявления
+
+<form action="/" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Submit">
+</form>
+</div>
+
+<div>
+    Все старые объявления
+
+</div>
+
+    {% if your_ads %}
+
+    {% for ad in your_ads %}
+        <div>
+        {{ ad.title }} {{ ad.created_at }}
+            <a href="{% url  "delete_ad" ad.id%}">Удалить</a>
+            <a href="{% url  "edit_ad" ad.id%}">Изменить</a>
+
+
+        </div>
+    {% endfor %}
+    {% endif %}
+
+
+<body>
+
+{% endblock %}

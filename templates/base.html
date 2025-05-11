@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+  {% block title %}<title>Бартер</title>{% endblock %}
+</head>
+
+<body>
+
+ {% if user.is_authenticated %}
+                <li>Пользователь: {{user.get_username}}</li>
+                <li><form method="post" action="{% url 'logout' %}">
+                    {% csrf_token %}
+                    <input type="submit" value="Выйти" class="logout-btn"></form></li>
+            {% else %}
+                <li><a href="{% url 'login' %}">Войти</a></li>
+            {% endif %}
+
+  {% block sidebar %}
+
+<div>
+    <a href="{% url  "ads_page" %}">Все объявления</a>
+    <a href="{% url  "offers_page" %}">Ваши предложения</a>
+    <a href="{% url  "lk_page" %}">Личный кабинет</a>
+    <a href="{% url  "login" %}">Войти</a>
+    <a href="{% url  "logout" %}">Выйти</a>
+</div>
+  {% endblock %}
+  {% block content %}<!-- default content text (typically empty) -->{% endblock %}
+</body>
+</html>
